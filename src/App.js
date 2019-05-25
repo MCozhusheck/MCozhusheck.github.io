@@ -1,27 +1,23 @@
 import React from 'react';
 import './App.css';
 var Tone = require('tone');
-
+var ohm = require('ohm-js');
+const file = require('./parser/musicLang.ohm');
 
 function App() {
 
-  var jakeSynth = new Tone.Synth({
-    oscillator : {
-      type : 'fmsquare',
-          modulationType : 'sawtooth',
-          modulationIndex : 3,
-          harmonicity: 3.4
-    },
-    envelope : {
-      attack : 0.001,
-          decay : 0.1,
-          sustain: 0.1,
-          release: 0.1
-    }
-  }).toMaster() 
+  let gramma = ohm.grammar('musicLang { triggerAttackRelease = "TriggerAttackRelease" " " alnum+ " " alnum+}');
+  let input = 'TriggerAttackRelease C4 8n';
+  let m = gramma.match(input);
+  if(m.succeeded()) {
+    console.log('matched')
+  } else {
+    console.log('did not match')
+  }
+  const synth = new Tone.MembraneSynth().toMaster();
 
   function playMusic() {
-    jakeSynth.triggerAttackRelease('B2', '8n')
+    synth.triggerAttackRelease('C4', '8n')
   }
   
   return (
