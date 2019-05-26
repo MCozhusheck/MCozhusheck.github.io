@@ -7,5 +7,5 @@ musicLang {
 
     TriggerAttackRelease = "TriggerAttackRelease" identifier identifier
 
-    identifier = alnum
+    identifier = alnum+
 }
