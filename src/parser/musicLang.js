@@ -1,5 +1,9 @@
 export let musicLang = `musicLang {
-  triggerAttackRelease = "TriggerAttackRelease" " " noteFreq " " tempoRelative " "? number?
+  Start
+    = triggerAttackRelease*
+
+  triggerAttackRelease
+    = "TriggerAttackRelease" " " noteFreq " " tempoRelative " "* number*
 
   noteFreq
     = pitchOctave
@@ -17,9 +21,9 @@ export let musicLang = `musicLang {
     | number
 
   notation
-    = "1".."8" "n"
-    | "1".."8" "t" 
-    | "1".."8" "m" 
+    = digit+ "n"
+    | digit+ "t" 
+    | digit+ "m" 
 
   number
     = digit* "." digit+  -- fract
@@ -32,7 +36,7 @@ export let musicLang = `musicLang {
     = digit* "hz" -- freq
 
   tick
-    = digit* "i" -- tick
+    = digit* "i"  -- tick
     
 }`
 
