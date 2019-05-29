@@ -9,13 +9,15 @@ var ohm = require('ohm-js');
 function App() {
   const synth = new Tone.MembraneSynth().toMaster();
   let gramma = ohm.grammar(musicLang);
-  let input = 'TriggerAttackRelease C4 4t';
+  let input = 'TriggerAttackRelease C#4 4t';
   let semnantics = gramma.createSemantics().addOperation('eval', {
     triggerAttackRelease: function(first, second, third, fourth, fiveth) {
       return synth.triggerAttackRelease(third.eval(), fiveth.eval())
     },
-    ident: function(e) {
-      console.log(this.sourceString)
+    noteFreq: function(e) {
+      return e.eval()
+    },
+    pitchOctave: function(_) {
       return this.sourceString
     },
     tempoRelative: function(e) {

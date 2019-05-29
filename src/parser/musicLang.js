@@ -1,8 +1,13 @@
 export let musicLang = `musicLang {
-  triggerAttackRelease = "TriggerAttackRelease" " " ident " " tempoRelative
+  triggerAttackRelease = "TriggerAttackRelease" " " noteFreq " " tempoRelative
 
-  ident
-    = alnum+
+  noteFreq
+    = pitchOctave
+    | number
+
+  pitchOctave
+    = "A".."G" digit     -- octave
+    | "A".."G" "#" digit -- sharpOctave
 
   tempoRelative
     = notation
