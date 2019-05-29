@@ -1,5 +1,5 @@
 export let musicLang = `musicLang {
-  triggerAttackRelease = "TriggerAttackRelease" " " noteFreq " " tempoRelative
+  triggerAttackRelease = "TriggerAttackRelease" " " noteFreq " " tempoRelative " "? number?
 
   noteFreq
     = pitchOctave
