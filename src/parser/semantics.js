@@ -7,6 +7,7 @@ let gramma = ohm.grammar(musicLang);
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
     triggerAttackRelease: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
+        console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
         return synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), timing.sourceString)
     },
     noteFreq: function (e) {
