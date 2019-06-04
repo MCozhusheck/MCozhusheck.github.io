@@ -4,11 +4,16 @@ var ohm = require('ohm-js');
 
 const synth = new Tone.MembraneSynth().toMaster();
 let gramma = ohm.grammar(musicLang);
+export var nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
+    Start: function(e) {
+        nodes = Object.assign(e.children)
+        return e.eval()
+    },
     triggerAttackRelease: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
         console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
-        return synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), timing.sourceString)
+        return Tone.Transport.schedule(synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), timing.sourceString))
     },
     noteFreq: function (e) {
         return e.eval()
@@ -45,4 +50,4 @@ export let match = function(input){
     return gramma.match(input)
 }
 
-export default { parse, match}
+export default { parse, match, nodes}
