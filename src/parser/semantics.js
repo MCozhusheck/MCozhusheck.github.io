@@ -40,6 +40,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     tick: function (_) {
         return this.sourceString
     },
+    nowRelative: function(plus, tempoRel) {
+        return plus.sourceString + tempoRel.eval()
+    }
 })
 
 export let parse = function parse(input) {

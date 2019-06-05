@@ -3,7 +3,7 @@ export let musicLang = `musicLang {
     = triggerAttackRelease*
 
   triggerAttackRelease
-    = "TriggerAttackRelease" " " noteFreq " " tempoRelative " "* number*
+    = "TriggerAttackRelease" " " noteFreq " " tempoRelative " "* tempoRelative*
 
   noteFreq
     = pitchOctave
@@ -12,12 +12,14 @@ export let musicLang = `musicLang {
   pitchOctave
     = "A".."G" digit     -- octave
     | "A".."G" "#" digit -- sharpOctave
+    | "A".."G" "b" digit -- flatOctave
 
   tempoRelative
     = notation
     | frequency
     | tick
     | transportTime
+    | nowRelative
     | number
 
   notation
@@ -37,6 +39,9 @@ export let musicLang = `musicLang {
 
   tick
     = digit* "i"  -- tick
+
+  nowRelative
+    = "+" tempoRelative
     
 }`
 

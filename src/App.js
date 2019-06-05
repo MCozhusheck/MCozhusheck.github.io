@@ -42,7 +42,7 @@ function App() {
       <form>
         <textarea style={{height: 200, width: 600}} value={input} onChange={ e => setInput(e.target.value)}/>
       </form>
-      <p>local seconds: {localTime}</p>
+      <p>time in seconds: {localTime}</p>
     </div>
   );
 }
