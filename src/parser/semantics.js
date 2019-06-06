@@ -4,18 +4,22 @@ var ohm = require('ohm-js');
 
 const synth = new Tone.MembraneSynth().toMaster();
 let gramma = ohm.grammar(musicLang);
+export var id
 export var nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
     Start: function(e) {
         nodes = Object.assign(e.children)
+        id = []
         return e.eval()
     },
     Statement: function(e) {
         e.eval()
     },
     exeSingleNote: function(singleNote, _, start) {
-        return Tone.Transport.schedule(singleNote.eval(), start.sourceString)
+        let tmpId = Tone.Transport.schedule(singleNote.eval(), start.sourceString)
+        id.push(tmpId)
+        return tmpId
     },
     singleNote: function (_, ls, noteFreq, ms, duration) {
         const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time);
@@ -62,4 +66,4 @@ export let match = function(input){
     return gramma.match(input)
 }
 
-export default { parse, match, nodes}
+export default { parse, match, nodes, id}

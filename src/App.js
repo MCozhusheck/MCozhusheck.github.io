@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { parse, match, nodes } from './parser/semantics'
+import { parse, match, nodes, id } from './parser/semantics'
 var Tone = require('tone');
 const placeholder = 'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
@@ -29,7 +29,8 @@ function App() {
       ids.forEach(id => Tone.Transport.clear(id))
     }
 
-    setIds(parse(input))
+    parse(input)
+    setIds(id)
 
     console.log(ids)
   }
