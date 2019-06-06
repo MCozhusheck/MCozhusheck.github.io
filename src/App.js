@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes } from './parser/semantics'
 var Tone = require('tone');
-const placeholder = 'TriggerAttackRelease C4 0.5 1\n' +
-'TriggerAttackRelease E4 0.5 2\n' +
-'TriggerAttackRelease G4 0.5 3\n' +
-'TriggerAttackRelease B4 0.5 4\n';
+const placeholder = 'SingleNote C4 0.5 1\n' +
+'SingleNote E4 0.5 2\n' +
+'SingleNote G4 0.5 3\n' +
+'SingleNote B4 0.5 4\n';
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
       console.log('did not match')
     }
 
-    if(ids != -1){
+    if(ids !== -1){
       ids.forEach(id => Tone.Transport.clear(id))
     }
 

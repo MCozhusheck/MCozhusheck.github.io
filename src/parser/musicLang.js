@@ -1,9 +1,16 @@
 export let musicLang = `musicLang {
   Start
-    = triggerAttackRelease*
+    = Statement*
 
-  triggerAttackRelease
-    = "TriggerAttackRelease" " "+ noteFreq " "+ tempoRelative " "+ tempoRelative?
+  Statement
+    = singleNote
+    | Repeat
+
+  singleNote
+    = "SingleNote" " "+ noteFreq " "+ tempoRelative " "+ tempoRelative?
+
+  Repeat
+    = "repeat" tempoRelative  tempoRelative? tempoRelative? "{" singleNote "}"
 
   noteFreq
     = pitchOctave

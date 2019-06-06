@@ -11,7 +11,10 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         nodes = Object.assign(e.children)
         return e.eval()
     },
-    triggerAttackRelease: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
+    Statement: function(e) {
+        e.eval()
+    },
+    singleNote: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
         //console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
         const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), time);
         return Tone.Transport.schedule(trigger, timing.sourceString);
@@ -42,6 +45,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     nowRelative: function(plus, tempoRel) {
         return plus.sourceString + tempoRel.eval()
+    },
+    Repeat: function(_, interval, start, duration, lcb, statement, rcb) {
+        return Tone.Transport.scheduleRepeat(statement.eval(), interval, start, duration)
     }
 })
 
