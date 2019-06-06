@@ -16,12 +16,12 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     Statement: function(e) {
         e.eval()
     },
-    exeSingleNote: function(singleNote, _, start) {
+    ExeSingleNote: function(singleNote, start) {
         let tmpId = Tone.Transport.schedule(singleNote.eval(), start.sourceString)
         id.push(tmpId)
         return tmpId
     },
-    singleNote: function (_, ls, noteFreq, ms, duration) {
+    SingleNote: function (_, noteFreq, duration) {
         const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time);
         return trigger
     },
@@ -52,8 +52,10 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     nowRelative: function(plus, tempoRel) {
         return plus.sourceString + tempoRel.eval()
     },
-    Repeat: function(_, interval, start, duration, lcb, statement, rcb) {
-        return Tone.Transport.scheduleRepeat(statement.eval(), interval, start, duration)
+    Repeat: function(_, callback, interval, start, duration) {
+        let tmpId = Tone.Transport.scheduleRepeat(callback.eval(), interval.eval(), start.eval(), duration.eval())
+        id.push(tmpId)
+        return tmpId
     }
 })
 
