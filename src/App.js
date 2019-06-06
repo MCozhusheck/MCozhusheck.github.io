@@ -11,6 +11,7 @@ function App() {
 
   const [localTime, setLocalTime] = useState(Tone.Transport.seconds.toFixed(2))
   const [input, setInput] = useState(placeholder)
+  const [ids, setIds] = useState([-1])
 
   useInterval( () => {
     setLocalTime(Tone.Transport.seconds.toFixed(2))
@@ -23,8 +24,14 @@ function App() {
     } else {
       console.log('did not match')
     }
-    parse(input)
-    console.log(nodes)
+
+    if(ids != -1){
+      ids.forEach(id => Tone.Transport.clear(id))
+    }
+
+    setIds(parse(input))
+
+    console.log(ids)
   }
 
   function toggleMusic() {

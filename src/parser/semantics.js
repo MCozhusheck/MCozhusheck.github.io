@@ -12,7 +12,7 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         return e.eval()
     },
     triggerAttackRelease: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
-        console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
+        //console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
         const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), time);
         return Tone.Transport.schedule(trigger, timing.sourceString);
     },
