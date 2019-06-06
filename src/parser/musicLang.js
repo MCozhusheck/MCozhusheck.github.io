@@ -3,11 +3,14 @@ export let musicLang = `musicLang {
     = Statement*
 
   Statement
-    = singleNote
+    = exeSingleNote
     | Repeat
 
+  exeSingleNote
+    = singleNote " "+ tempoRelative?
+
   singleNote
-    = "SingleNote" " "+ noteFreq " "+ tempoRelative " "+ tempoRelative?
+    = "SingleNote" " "+ noteFreq " "+ tempoRelative
 
   Repeat
     = "repeat" tempoRelative  tempoRelative? tempoRelative? "{" singleNote "}"

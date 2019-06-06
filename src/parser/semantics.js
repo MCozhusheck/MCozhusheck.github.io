@@ -14,10 +14,12 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     Statement: function(e) {
         e.eval()
     },
-    singleNote: function (_, ls, noteFreq, ms, tempoRelative, rs, timing) {
-        //console.log(`TriggerAttackRelease notefreq: ${noteFreq.eval()} tempoRelative: ${tempoRelative.eval()} timing: ${timing.sourceString}`)
-        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), tempoRelative.eval(), time);
-        return Tone.Transport.schedule(trigger, timing.sourceString);
+    exeSingleNote: function(singleNote, _, start) {
+        return Tone.Transport.schedule(singleNote.eval(), start.sourceString)
+    },
+    singleNote: function (_, ls, noteFreq, ms, duration) {
+        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time);
+        return trigger
     },
     noteFreq: function (e) {
         return e.eval()
