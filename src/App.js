@@ -8,15 +8,58 @@ const placeholder = 'membrane\n' +
 'SingleNote G4 0.5 3\n' +
 'SingleNote B4 0.5 4\n';
 
-function App() {
+function Timer() {
 
   const [localTime, setLocalTime] = useState(Tone.Transport.seconds.toFixed(2))
-  const [input, setInput] = useState(placeholder)
-  const [ids, setIds] = useState([-1])
 
   useInterval( () => {
     setLocalTime(Tone.Transport.seconds.toFixed(2))
   }, 10)
+
+  return (
+    <div>
+      <p>time in seconds: {localTime}</p>
+    </div>
+  );
+}
+
+function ToggleButton() {
+
+  function toggleMusic() {
+    Tone.Transport.toggle()
+  }
+
+  return (
+    <button onClick={toggleMusic}>
+        toggle music
+      </button>
+  )
+}
+
+function ParseButton({parse}) {
+  
+  return (
+    <button onClick={parse}>
+        parse
+    </button>
+  )
+}
+
+function InputText({input, setInput}) {
+
+  return (
+    <div>
+      <form>
+        <textarea style={{height: 400, width: 600}} value={input} onChange={ e => setInput(e.target.value)}/>
+      </form>
+    </div>
+  )
+}
+
+function App() {
+
+  const [input, setInput] = useState(placeholder)
+  const [ids, setIds] = useState([-1])
 
   function parseInput() {
     let m = match(input);
@@ -33,25 +76,15 @@ function App() {
     parse(input)
     setIds(id)
 
-    console.log(ids)
-  }
-
-  function toggleMusic() {
-    Tone.Transport.toggle()
+    console.log(nodes)
   }
 
   return (
     <div className="App">
-      <button onClick={parseInput}>
-        parse
-      </button>
-      <button onClick={toggleMusic}>
-        toggle music
-      </button>
-      <form>
-        <textarea style={{height: 200, width: 600}} value={input} onChange={ e => setInput(e.target.value)}/>
-      </form>
-      <p>time in seconds: {localTime}</p>
+      <ParseButton parse={parseInput} />
+      <ToggleButton />
+      <InputText input={input} setInput={setInput} />
+      <Timer />
     </div>
   );
 }

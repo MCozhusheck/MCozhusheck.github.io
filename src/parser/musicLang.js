@@ -1,4 +1,8 @@
 export let musicLang = `musicLang {
+  
+  Init
+    = Start
+
   Start
     = ToneType Statement*
 

@@ -8,9 +8,12 @@ export var id
 export var nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
-    Start: function(toneType, statements) {
-        nodes = Object.assign(statements.children)
+    Init: function(start) {
+        nodes = Object.assign(start.children)
         id = []
+        start.eval()
+    },
+    Start: function(toneType, statements) {
         toneType.eval()
         statements.eval()
     },
