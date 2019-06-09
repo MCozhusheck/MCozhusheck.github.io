@@ -1,12 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics'
+import Tree from 'react-tree-graph';
+
 var Tone = require('tone');
 const placeholder = 'membrane\n' + 
 'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
 'SingleNote G4 0.5 3\n' +
 'SingleNote B4 0.5 4\n';
+
+let data = {
+	name: 'Parent',
+	children: [{
+    name: 'Child One',
+    children: [{
+      name: 'Child Three'
+    }, {
+      name: 'Child Four'
+    }]
+	}, {
+		name: 'Child Two'
+	}]
+};
 
 function Timer() {
 
@@ -76,6 +92,8 @@ function App() {
     parse(input)
     setIds(id)
 
+    nodes.name = nodes.ctorName
+    traverseNodes(nodes)
     console.log(nodes)
   }
 
@@ -107,6 +125,16 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
+}
+
+function traverseNodes(nodes) {
+  if(!nodes){
+    return
+  }
+  nodes.name = nodes.isTerminal() ? nodes.sourceString : nodes.ctorName
+  for(let i=0; i<nodes.numChildren; i++){
+    traverseNodes(nodes.child[i])
+  }
 }
 
 export default App;

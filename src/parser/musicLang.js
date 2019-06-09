@@ -8,6 +8,20 @@ export let musicLang = `musicLang {
 
   ToneType 
     = MembraneSynth
+    | Instrument
+
+  Instrument
+    = Oscillator Envelope
+
+  Oscillator 
+    = type
+
+  type
+    = "fmsquare"
+    | "triangle8"
+
+  Envelope
+    = number number number number
 
   MembraneSynth
     = "membrane"

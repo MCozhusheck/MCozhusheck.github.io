@@ -9,7 +9,7 @@ export var nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
     Init: function(start) {
-        nodes = Object.assign(start.children)
+        nodes = Object.assign(start)
         id = []
         start.eval()
     },
@@ -22,6 +22,34 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     MembraneSynth: function(e) {
         synth = new Tone.MembraneSynth().toMaster();
+    },
+    Instrument(oscillator, envelope) {
+        console.log('Instrument')
+        synth = new Tone.Synth(oscillator.eval(),envelope.eval()).toMaster()
+    },
+    Oscillator: function(type) {
+        console.log('Oscilator')
+        let oscillator = {
+            oscillator: {
+                type: type.eval()
+            }
+        }
+        return oscillator
+    },
+    type: function(_) {
+        console.log('type')
+        return this.sourceString
+    },
+    Envelope(attack, decay, sustain, release){
+        let envelope = {
+            envelope: {
+                attack: attack.eval(),
+                decay: decay.eval(),
+                sustain: sustain.eval(),
+                release: release.eval()
+            }
+        }
+        return envelope
     },
     Statement: function(e) {
         e.eval()
