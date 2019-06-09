@@ -4,7 +4,7 @@ import { parse, match, nodes, id } from './parser/semantics'
 import Tree from 'react-tree-graph';
 
 var Tone = require('tone');
-const placeholder = 'membrane\n' + 
+const placeholder = 'triangle8 2 1 0.4 4\n' + 
 'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
 'SingleNote G4 0.5 3\n' +
@@ -76,13 +76,17 @@ function App() {
 
   const [input, setInput] = useState(placeholder)
   const [ids, setIds] = useState([-1])
+  const [matched, setMatched] = useState(false)
 
   function parseInput() {
     let m = match(input);
     if (m.succeeded()) {
       console.log('matched')
+      setMatched(true)
     } else {
       console.log('did not match')
+      setMatched(false)
+      return
     }
 
     if(ids !== -1){
@@ -101,6 +105,7 @@ function App() {
     <div className="App">
       <ParseButton parse={parseInput} />
       <ToggleButton />
+      <p>{matched ? 'pasring succeeded' : 'parsing failed'}</p>
       <InputText input={input} setInput={setInput} />
       <Timer />
     </div>

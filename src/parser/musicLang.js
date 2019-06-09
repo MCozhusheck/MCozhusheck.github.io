@@ -9,6 +9,13 @@ export let musicLang = `musicLang {
   ToneType 
     = MembraneSynth
     | Instrument
+    | PolySynth
+
+  PolySynth
+    = term number
+  
+  term
+    = "PolySynth"
 
   Instrument
     = Oscillator Envelope

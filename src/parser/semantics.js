@@ -24,11 +24,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         synth = new Tone.MembraneSynth().toMaster();
     },
     Instrument(oscillator, envelope) {
-        console.log('Instrument')
         synth = new Tone.Synth(oscillator.eval(),envelope.eval()).toMaster()
     },
     Oscillator: function(type) {
-        console.log('Oscilator')
         let oscillator = {
             oscillator: {
                 type: type.eval()
@@ -37,8 +35,13 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         return oscillator
     },
     type: function(_) {
-        console.log('type')
         return this.sourceString
+    },
+    PolySynth: function(_, num) {
+        synth = new Tone.PolySynth(num.eval(), Tone.Synth).toMaster()
+    },
+    term: function(e) {
+        
     },
     Envelope(attack, decay, sustain, release){
         let envelope = {
