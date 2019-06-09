@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics'
 var Tone = require('tone');
-const placeholder = 'SingleNote C4 0.5 1\n' +
+const placeholder = 'membrane\n' + 
+'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
 'SingleNote G4 0.5 3\n' +
 'SingleNote B4 0.5 4\n';

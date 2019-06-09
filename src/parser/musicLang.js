@@ -1,7 +1,13 @@
 export let musicLang = `musicLang {
   Start
-    = Statement*
+    = ToneType Statement*
 
+  ToneType 
+    = MembraneSynth
+
+  MembraneSynth
+    = "membrane"
+  
   Statement
     = ExeSingleNote
     | Repeat

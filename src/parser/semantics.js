@@ -2,16 +2,23 @@ import musicLang from './musicLang'
 var Tone = require('tone');
 var ohm = require('ohm-js');
 
-const synth = new Tone.MembraneSynth().toMaster();
+let synth = null
 let gramma = ohm.grammar(musicLang);
 export var id
 export var nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
-    Start: function(e) {
-        nodes = Object.assign(e.children)
+    Start: function(toneType, statements) {
+        nodes = Object.assign(statements.children)
         id = []
-        return e.eval()
+        toneType.eval()
+        statements.eval()
+    },
+    ToneType: function(e) {
+        e.eval()
+    },
+    MembraneSynth: function(e) {
+        synth = new Tone.MembraneSynth().toMaster();
     },
     Statement: function(e) {
         e.eval()
