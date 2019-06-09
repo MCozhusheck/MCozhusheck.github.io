@@ -105,7 +105,7 @@ function App() {
     <div className="App">
       <ParseButton parse={parseInput} />
       <ToggleButton />
-      <p>{matched ? 'pasring succeeded' : 'parsing failed'}</p>
+      <p>{matched ? 'parsing succeeded' : 'parsing failed'}</p>
       <InputText input={input} setInput={setInput} />
       <Timer />
     </div>
