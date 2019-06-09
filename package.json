@@ -1,8 +1,10 @@
 {
+  "homepage": "https://mcozhusheck.github.io/",
   "name": "musiclang",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "ohm": "^0.10.4",
     "ohm-js": "^0.14.0",
     "react": "^16.8.6",
@@ -12,6 +14,8 @@
     "tone": "^13.4.9"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
