@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics'
-import Tree from 'react-tree-graph';
 
 var Tone = require('tone');
 const placeholder = 'triangle8 2 1 0.4 4\n' + 
