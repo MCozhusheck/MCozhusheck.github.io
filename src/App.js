@@ -2,26 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics'
 
-var Tone = require('tone');
+let Tone = require('tone');
+const parsingSucceeded = "Parsing succeeded";
+const parsingFailed = "Parsing Failed";
 const placeholder = 'triangle8 2 1 0.4 4\n' + 
 'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
 'SingleNote G4 0.5 3\n' +
 'SingleNote B4 0.5 4\n';
 
-let data = {
-	name: 'Parent',
-	children: [{
-    name: 'Child One',
-    children: [{
-      name: 'Child Three'
-    }, {
-      name: 'Child Four'
-    }]
-	}, {
-		name: 'Child Two'
-	}]
-};
 
 function Timer() {
 
@@ -75,16 +64,16 @@ function App() {
 
   const [input, setInput] = useState(placeholder)
   const [ids, setIds] = useState([-1])
-  const [matched, setMatched] = useState(false)
+  const [matched, setMatched] = useState("")
 
   function parseInput() {
     let m = match(input);
     if (m.succeeded()) {
       console.log('matched')
-      setMatched(true)
+      setMatched(parsingSucceeded)
     } else {
       console.log('did not match')
-      setMatched(false)
+      setMatched(parsingFailed)
       return
     }
 
@@ -104,7 +93,7 @@ function App() {
     <div className="App">
       <ParseButton parse={parseInput} />
       <ToggleButton />
-      <p>{matched ? 'parsing succeeded' : 'parsing failed'}</p>
+      <p>{matched}</p>
       <InputText input={input} setInput={setInput} />
       <Timer />
     </div>
