@@ -1,6 +1,6 @@
 import musicLang from './musicLang'
-var Tone = require('tone');
-var ohm = require('ohm-js');
+import Tone from 'tone';
+import ohm  from 'ohm-js';
 
 let synth = null
 let gramma = ohm.grammar(musicLang);

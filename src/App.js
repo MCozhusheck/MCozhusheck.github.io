@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics'
 
-let Tone = require('tone');
+import Tone  from 'tone';
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 const placeholder = 'triangle8 2 1 0.4 4\n' + 
