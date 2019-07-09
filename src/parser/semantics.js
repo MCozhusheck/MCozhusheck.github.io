@@ -1,11 +1,12 @@
 import musicLang from './musicLang'
 import Tone from 'tone';
 import ohm  from 'ohm-js';
+import { piano } from './instruments'
 
 let synth = null
 let gramma = ohm.grammar(musicLang);
-export var id
-export var nodes
+export let id
+export let nodes
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
     Init: function(start) {
@@ -25,6 +26,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     Instrument(oscillator, envelope) {
         synth = new Tone.Synth(oscillator.eval(),envelope.eval()).toMaster()
+    },
+    InstrumentType(instrumentType){
+        synth = piano
     },
     Oscillator: function(type) {
         let oscillator = {

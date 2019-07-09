@@ -19,6 +19,10 @@ export let musicLang = `musicLang {
 
   Instrument
     = Oscillator Envelope
+    | InstrumentType number
+
+  InstrumentType
+    = "piano"
 
   Oscillator 
     = type

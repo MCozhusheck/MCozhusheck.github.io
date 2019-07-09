@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { parse, match, nodes, id } from './parser/semantics'
-
+import { parse, match, nodes, id } from './parser/semantics';
 import Tone  from 'tone';
+import { piano } from './parser/instruments'
+
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 const placeholder = 'triangle8 2 1 0.4 4\n' + 
@@ -84,8 +85,8 @@ function App() {
     parse(input)
     setIds(id)
 
-    nodes.name = nodes.ctorName
-    traverseNodes(nodes)
+    console.log(piano)
+
     console.log(nodes)
   }
 
@@ -118,16 +119,6 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
-}
-
-function traverseNodes(nodes) {
-  if(!nodes){
-    return
-  }
-  nodes.name = nodes.isTerminal() ? nodes.sourceString : nodes.ctorName
-  for(let i=0; i<nodes.numChildren; i++){
-    traverseNodes(nodes.child[i])
-  }
 }
 
 export default App;
