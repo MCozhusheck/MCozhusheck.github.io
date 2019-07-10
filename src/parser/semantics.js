@@ -19,10 +19,10 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         statements.eval()
     },
     Instrument(oscillator, voice) {
-        synth = new Tone.PolySynth(voice.eval(), oscillator.eval()).toMaster()
+        synth = getInstrument(oscillator.sourceString).toMaster()
     },
     InstrumentType(instrumentType){
-        synth = getInstrument(instrumentType.sourceString);
+        //synth = getInstrument(instrumentType.sourceString);
     },
     Statement: function(e) {
         e.eval()
