@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { parse, match, nodes, id } from './parser/semantics';
+import { parse, match, nodes, id, loaded } from './parser/semantics';
 import Tone  from 'tone';
-import { piano } from './parser/instruments'
 
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
-const placeholder = 'triangle8 2 1 0.4 4\n' + 
+const placeholder = 'piano 4\n' + 
 'SingleNote C4 0.5 1\n' +
 'SingleNote E4 0.5 2\n' +
 'SingleNote G4 0.5 3\n' +
@@ -84,8 +83,6 @@ function App() {
 
     parse(input)
     setIds(id)
-
-    console.log(piano)
 
     console.log(nodes)
   }

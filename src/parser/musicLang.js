@@ -4,38 +4,13 @@ export let musicLang = `musicLang {
     = Start
 
   Start
-    = ToneType Statement*
-
-  ToneType 
-    = MembraneSynth
-    | Instrument
-    | PolySynth
-
-  PolySynth
-    = term number
-  
-  term
-    = "PolySynth"
+    = Instrument Statement*
 
   Instrument
-    = Oscillator Envelope
-    | InstrumentType number
+    = InstrumentType number
 
   InstrumentType
     = "piano"
-
-  Oscillator 
-    = type
-
-  type
-    = "fmsquare"
-    | "triangle8"
-
-  Envelope
-    = number number number number
-
-  MembraneSynth
-    = "membrane"
   
   Statement
     = ExeSingleNote
@@ -45,7 +20,7 @@ export let musicLang = `musicLang {
     = SingleNote tempoRelative?
 
   SingleNote
-    = "SingleNote" noteFreq tempoRelative
+    = "SingleNote" noteFreq tempoRelative number
 
   Repeat
     = "Repeat" SingleNote tempoRelative tempoRelative? tempoRelative?

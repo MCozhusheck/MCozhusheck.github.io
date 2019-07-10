@@ -1,7 +1,7 @@
 import musicLang from './musicLang'
 import Tone from 'tone';
 import ohm  from 'ohm-js';
-import { piano } from './instruments'
+import { getInstrument, loaded } from './instruments'
 
 let synth = null
 let gramma = ohm.grammar(musicLang);
@@ -18,45 +18,11 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         toneType.eval()
         statements.eval()
     },
-    ToneType: function(e) {
-        e.eval()
-    },
-    MembraneSynth: function(e) {
-        synth = new Tone.MembraneSynth().toMaster();
-    },
-    Instrument(oscillator, envelope) {
-        synth = new Tone.Synth(oscillator.eval(),envelope.eval()).toMaster()
+    Instrument(oscillator, voice) {
+        synth = new Tone.PolySynth(voice.eval(), oscillator.eval()).toMaster()
     },
     InstrumentType(instrumentType){
-        synth = piano
-    },
-    Oscillator: function(type) {
-        let oscillator = {
-            oscillator: {
-                type: type.eval()
-            }
-        }
-        return oscillator
-    },
-    type: function(_) {
-        return this.sourceString
-    },
-    PolySynth: function(_, num) {
-        synth = new Tone.PolySynth(num.eval(), Tone.Synth).toMaster()
-    },
-    term: function(e) {
-        
-    },
-    Envelope(attack, decay, sustain, release){
-        let envelope = {
-            envelope: {
-                attack: attack.eval(),
-                decay: decay.eval(),
-                sustain: sustain.eval(),
-                release: release.eval()
-            }
-        }
-        return envelope
+        synth = getInstrument(instrumentType.sourceString);
     },
     Statement: function(e) {
         e.eval()
@@ -66,8 +32,8 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         id.push(tmpId)
         return tmpId
     },
-    SingleNote: function (_, noteFreq, duration) {
-        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time);
+    SingleNote: function (_, noteFreq, duration, velocity) {
+        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time, velocity.sourceString);
         return trigger
     },
     noteFreq: function (e) {
@@ -113,4 +79,4 @@ export let match = function(input){
     return gramma.match(input)
 }
 
-export default { parse, match, nodes, id}
+export default { parse, match, nodes, id, loaded}
