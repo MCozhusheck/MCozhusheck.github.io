@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { parse, match, nodes, id, loaded } from './parser/semantics';
+import { parse, match, nodes, id } from './parser/semantics';
 import Tone  from 'tone';
 
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
-const placeholder = 'piano 4\n' + 
+const placeholder = 'piano\n' + 
 'SingleNote C4 0.5 0.3 1\n' +
 'SingleNote E4 0.5 0.5 2\n' +
 'SingleNote G4 0.5 0.7 3\n' +
@@ -80,6 +80,7 @@ function App() {
     if(ids !== -1){
       ids.forEach(id => Tone.Transport.clear(id))
     }
+  
 
     parse(input)
     setIds(id)

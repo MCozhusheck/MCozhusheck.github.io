@@ -1,17 +1,17 @@
 import Tone from 'tone';
 import { instrumentsSource } from './instrumentsSource';
-const baseUrl = '../../../instruments/samples';
+const baseUrl = '/samples/';
 
 
 let instrumentsList = ['bass-electric','bassoon','cello','clarinet','contrabass','flute','french-horn','guitar-acoustic','guitar-electric','guitar-nylon', 'harmonium','harp','organ','piano','saxophone','trombone','trumpet','tuba','violin','xylophone'];
 
-export let loaded = false;
 let doneLoading = function(){
-    loaded = true;
+    console.log('loaded')
 }
-//export let piano = new Tone.Sampler(instrumentsSource.piano, doneLoadingInstrument(), baseUrl)
+
 export let getInstrument = function(instrument) {
-    let instrumentSample = new Tone.Sampler(instrumentsSource[instrument], doneLoading(), baseUrl)
+    console.log(baseUrl.concat(instrument+'/'))
+    let instrumentSample = new Tone.Sampler(instrumentsSource[instrument], doneLoading(), baseUrl.concat(instrument+'/'))
     return instrumentSample
 }
 

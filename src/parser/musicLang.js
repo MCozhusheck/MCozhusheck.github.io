@@ -7,9 +7,6 @@ export let musicLang = `musicLang {
     = Instrument Statement*
 
   Instrument
-    = InstrumentType number
-
-  InstrumentType
     = "bass-electric"
     | "bassoon"
     | "cello"

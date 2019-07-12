@@ -1,7 +1,7 @@
 import musicLang from './musicLang'
 import Tone from 'tone';
 import ohm  from 'ohm-js';
-import { getInstrument, loaded } from './instruments'
+import { getInstrument } from './instruments'
 
 let synth = null
 let gramma = ohm.grammar(musicLang);
@@ -18,11 +18,8 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         toneType.eval()
         statements.eval()
     },
-    Instrument(oscillator, voice) {
+    Instrument(oscillator) {
         synth = getInstrument(oscillator.sourceString).toMaster()
-    },
-    InstrumentType(instrumentType){
-        //synth = getInstrument(instrumentType.sourceString);
     },
     Statement: function(e) {
         e.eval()
@@ -79,4 +76,4 @@ export let match = function(input){
     return gramma.match(input)
 }
 
-export default { parse, match, nodes, id, loaded}
+export default { parse, match, nodes, id }
