@@ -6,7 +6,7 @@ import Tone  from 'tone';
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 
-const placeholder = 'piano\n' + 
+const placeholder = 'violin\n' + 
 'SingleNote C4 0.5 0.3 1\n' +
 'SingleNote E4 0.5 0.5 2\n' +
 'SingleNote G4 0.5 0.7 3\n' +
