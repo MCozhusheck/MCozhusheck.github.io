@@ -28,14 +28,14 @@ function Timer() {
   );
 }
 
-function ToggleButton() {
+function ToggleButton({disabled}) {
 
   function toggleMusic() {
     Tone.Transport.toggle()
   }
 
   return (
-    <button onClick={toggleMusic}>
+    <button onClick={toggleMusic} disabled={disabled}>
         toggle music
       </button>
   )
@@ -66,8 +66,18 @@ function App() {
   const [input, setInput] = useState(placeholder)
   const [ids, setIds] = useState([-1])
   const [matched, setMatched] = useState("")
+  const [loaded, setLoaded] = useState(false)
+
+  Tone.Buffer.on('load', function() {
+    setLoaded(true)
+  })
+
+  Tone.Buffer.on('error', function() {
+    console.log('test error')
+  })
 
   function parseInput() {
+    setLoaded(false)
     let m = match(input);
     if (m.succeeded()) {
       console.log('matched input text')
@@ -90,7 +100,7 @@ function App() {
   return (
     <div className="App">
       <ParseButton parse={parseInput} />
-      <ToggleButton />
+      <ToggleButton disabled={!loaded} />
       <p>{matched}</p>
       <InputText input={input} setInput={setInput} />
       <Timer />
