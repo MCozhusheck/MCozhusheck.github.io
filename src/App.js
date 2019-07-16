@@ -65,15 +65,17 @@ function App() {
 
   const [input, setInput] = useState(placeholder)
   const [ids, setIds] = useState([-1])
-  const [matched, setMatched] = useState("")
+  const [feedback, setFeedback] = useState("Waiting for input")
   const [loaded, setLoaded] = useState(false)
 
   Tone.Buffer.on('load', function() {
     setLoaded(true)
+    setFeedback("Audio assets loaded.")
   })
 
   Tone.Buffer.on('error', function() {
-    console.log('test error')
+    setFeedback("Failed to to load audio assets.")
+    setLoaded(false)
   })
 
   function parseInput() {
@@ -81,12 +83,14 @@ function App() {
     let m = match(input);
     if (m.succeeded()) {
       console.log('matched input text')
-      setMatched(parsingSucceeded)
+      setFeedback(parsingSucceeded)
     } else {
       console.log('did not match input text')
-      setMatched(parsingFailed)
+      setFeedback(parsingFailed)
       return
     }
+
+    setFeedback(parsingSucceeded + ', loading audio assets.')
 
     if(ids !== -1){
       ids.forEach(id => Tone.Transport.clear(id))
@@ -101,7 +105,7 @@ function App() {
     <div className="App">
       <ParseButton parse={parseInput} />
       <ToggleButton disabled={!loaded} />
-      <p>{matched}</p>
+      <p>{feedback}</p>
       <InputText input={input} setInput={setInput} />
       <Timer />
     </div>
