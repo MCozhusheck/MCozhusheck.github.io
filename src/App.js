@@ -70,10 +70,10 @@ function App() {
   function parseInput() {
     let m = match(input);
     if (m.succeeded()) {
-      console.log('matched')
+      console.log('matched input text')
       setMatched(parsingSucceeded)
     } else {
-      console.log('did not match')
+      console.log('did not match input text')
       setMatched(parsingFailed)
       return
     }
@@ -85,8 +85,6 @@ function App() {
 
     parse(input)
     setIds(id)
-
-    console.log(nodes)
   }
 
   return (
