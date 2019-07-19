@@ -33,17 +33,32 @@ export let musicLang = `musicLang {
     | Repeat
 
   ExeSingleNote
-    = SingleNote tempoRelative?
+    = "Play" SingleNote Timing
 
   SingleNote
-    = "SingleNote" noteFreq tempoRelative number
+    = "SingleNote" noteFreq Duration Velocity
 
   Repeat
-    = "Repeat" SingleNote tempoRelative tempoRelative? tempoRelative?
+    = "Repeat" SingleNote Interval StartTime Duration
 
   noteFreq
     = pitchOctave
     | number
+
+  Duration
+    = "for" tempoRelative
+
+  Velocity
+    = "velocity" number
+
+  Timing
+    = "at" tempoRelative
+
+  Interval
+    = "every" tempoRelative
+
+  StartTime
+    = "since" tempoRelative
 
   pitchOctave
     = "A".."G" digit     -- octave

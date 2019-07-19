@@ -25,14 +25,29 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     Statement: function(e) {
         e.eval()
     },
-    ExeSingleNote: function(singleNote, start) {
-        let tmpId = Tone.Transport.schedule(singleNote.eval(), start.sourceString)
+    ExeSingleNote: function(_, singleNote, start) {
+        let tmpId = Tone.Transport.schedule(singleNote.eval(), start.eval())
         id.push(tmpId)
         return tmpId
     },
     SingleNote: function (_, noteFreq, duration, velocity) {
-        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time, velocity.sourceString);
+        const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time, velocity.eval());
         return trigger
+    },
+    Duration: function (_, dur) {
+        return dur.eval()
+    },
+    Velocity: function(_, vel){
+        return vel.sourceString
+    },
+    Timing: function (_, start) {
+        return start.eval()
+    },
+    Interval: function(_, inter) {
+        return inter.eval()
+    },
+    StartTime: function(_, start) {
+        return start.eval()
     },
     noteFreq: function (e) {
         return e.eval()

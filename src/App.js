@@ -2,15 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { parse, match, nodes, id } from './parser/semantics';
 import Tone  from 'tone';
+import {getInstrument} from './parser/instruments'
 
 const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 
 const placeholder = 'violin\n' + 
-'SingleNote C4 0.5 0.3 1\n' +
-'SingleNote E4 0.5 0.5 2\n' +
-'SingleNote G4 0.5 0.7 3\n' +
-'SingleNote B4 0.5 1 4\n';
+'Repeat SingleNote C4 for 0.5 velocity 0.3 every 4 since 1 for 10\n' +
+'Play SingleNote E4 for 0.5 velocity 0.5 at 2\n' +
+'Play SingleNote G4 for 0.5 velocity 0.7 at 3\n' +
+'Play SingleNote B4 for 0.5 velocity 1 at 4\n';
 
 
 function Timer() {
