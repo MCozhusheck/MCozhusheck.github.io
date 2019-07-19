@@ -68,10 +68,11 @@ function App() {
   const [feedback, setFeedback] = useState("Waiting for input")
   const [loaded, setLoaded] = useState(false)
 
-  Tone.Buffer.on('load', function() {
+  let assetsLoaded = function() {
     setLoaded(true)
     setFeedback("Audio assets loaded.")
-  })
+  }
+  Tone.Buffer.on('load', assetsLoaded)
 
   Tone.Buffer.on('error', function() {
     setFeedback("Failed to to load audio assets.")
@@ -99,6 +100,7 @@ function App() {
 
     parse(input)
     setIds(id)
+    //assetsLoaded()
   }
 
   return (
