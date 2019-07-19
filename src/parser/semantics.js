@@ -25,8 +25,11 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     Statement: function(e) {
         e.eval()
     },
-    ExeSingleNote: function(_, singleNote, start) {
-        let tmpId = Tone.Transport.schedule(singleNote.eval(), start.eval())
+    Event: function(event) {
+        return event.eval()
+    },
+    Play: function(_, event, start) {
+        let tmpId = Tone.Transport.schedule(event.eval(), start.eval())
         id.push(tmpId)
         return tmpId
     },

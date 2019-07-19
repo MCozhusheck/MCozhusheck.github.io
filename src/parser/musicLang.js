@@ -29,17 +29,20 @@ export let musicLang = `musicLang {
     | "xylophone"
   
   Statement
-    = ExeSingleNote
+    = Play
     | Repeat
 
-  ExeSingleNote
-    = "Play" SingleNote Timing
+  Event 
+    = SingleNote
+
+  Play
+    = "Play" Event Timing
 
   SingleNote
     = "SingleNote" noteFreq Duration Velocity
 
   Repeat
-    = "Repeat" SingleNote Interval StartTime Duration
+    = "Repeat" Event Interval StartTime Duration
 
   noteFreq
     = pitchOctave
