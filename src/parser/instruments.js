@@ -9,8 +9,9 @@ instrumentsList.forEach( function (instrument) {
     instruments.set(instrument, undefined)
 })
 
-export let getInstrument = function(instrument) {
+export let getInstrument = function(instrument, onLoad) {
     if(instruments.get(instrument)) {
+        onLoad()
         return instruments.get(instrument)
     }
     let instrumentSample = new Tone.Sampler(instrumentsSource[instrument], undefined, baseUrl.concat(instrument+'/'))

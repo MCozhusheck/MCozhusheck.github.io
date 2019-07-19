@@ -5,6 +5,7 @@ import { getInstrument } from './instruments'
 
 let synth = null
 let gramma = ohm.grammar(musicLang);
+let onLoad = null;
 export let id
 export let nodes
 
@@ -19,7 +20,7 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         statements.eval()
     },
     Instrument(oscillator) {
-        synth = getInstrument(oscillator.sourceString).toMaster()
+        synth = getInstrument(oscillator.sourceString, onLoad).toMaster()
     },
     Statement: function(e) {
         e.eval()
@@ -67,8 +68,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     }
 })
 
-export let parse = function parse(input) {
+export let parse = function parse(input, assetsLoaded) {
     let result = match(input)
+    onLoad = assetsLoaded
     return semnantics(result).eval()
 }
 

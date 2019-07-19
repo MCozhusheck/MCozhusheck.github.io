@@ -98,9 +98,8 @@ function App() {
     }
   
 
-    parse(input)
+    parse(input, assetsLoaded)
     setIds(id)
-    //assetsLoaded()
   }
 
   return (
