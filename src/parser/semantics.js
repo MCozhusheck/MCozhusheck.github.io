@@ -37,6 +37,21 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         const trigger = (time) => synth.triggerAttackRelease(noteFreq.eval(), duration.eval(), time, velocity.eval());
         return trigger
     },
+    ManyNotes2: function (_,n1, n2, duration, velocity) {
+        let noteArray = [n1.sourceString, n2.sourceString];
+        const trigger = (time) => synth.triggerAttackRelease(noteArray, duration.eval(), time, velocity.eval())
+        return trigger
+    },
+    ManyNotes3: function (_,n1, n2, n3, duration, velocity) {
+        let noteArray = [n1.sourceString, n2.sourceString, n3.sourceString];
+        const trigger = (time) => synth.triggerAttackRelease(noteArray, duration.eval(), time, velocity.eval())
+        return trigger
+    },
+    ManyNotes4: function (_,n1, n2, n3, n4, duration, velocity) {
+        let noteArray = [n1.sourceString, n2.sourceString, n3.sourceString, n4.sourceString];
+        const trigger = (time) => synth.triggerAttackRelease(noteArray, duration.eval(), time, velocity.eval())
+        return trigger
+    },
     Duration: function (_, dur) {
         return dur.eval()
     },
