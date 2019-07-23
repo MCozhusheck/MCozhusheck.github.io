@@ -41,12 +41,14 @@ export let musicLang = `musicLang {
 
   Play
     = "Play" Event Timing
+    | "Play" ident Timing
 
   SingleNote
     = "SingleNote" noteFreq Duration Velocity
 
   Repeat
     = "Repeat" Event Interval StartTime Duration
+    | "Repeat" ident Interval StartTime Duration
 
   ManyNotes2
     = "ManyNotes" noteFreq noteFreq Duration Velocity

@@ -6,6 +6,7 @@ import { getInstrument } from './instruments'
 let synth = null
 let gramma = ohm.grammar(musicLang);
 let onLoad = null;
+let variables = new Map();
 export let id
 export let nodes
 
@@ -29,7 +30,12 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         return event.eval()
     },
     Play: function(_, event, start) {
-        let tmpId = Tone.Transport.schedule(event.eval(), start.eval())
+        let tmpId
+        if(typeof event.eval() === 'function') {
+            tmpId = Tone.Transport.schedule(event.eval(), start.eval())
+        } else {
+            tmpId = Tone.Transport.schedule(variables.get(event.eval()), start.eval())
+        }
         id.push(tmpId)
         return tmpId
     },
@@ -53,7 +59,7 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         return trigger
     },
     Assignment: function (_, ident, __, event) {
-        console.log(ident.eval())
+        variables.set(ident.eval(), event.eval())
     },
     Duration: function (_, dur) {
         return dur.eval()
@@ -100,8 +106,13 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     ident: function(i) {
         return i.sourceString
     },
-    Repeat: function(_, callback, interval, start, duration) {
-        let tmpId = Tone.Transport.scheduleRepeat(callback.eval(), interval.eval(), start.eval(), duration.eval())
+    Repeat: function(_, event, interval, start, duration) {
+        let tmpId
+        if(typeof event === 'function') {
+            tmpId = Tone.Transport.scheduleRepeat(event.eval(), interval.eval(), start.eval(), duration.eval())
+        } else{
+            tmpId = Tone.Transport.scheduleRepeat(variables.get(event.eval()), interval.eval(), start.eval(), duration.eval())
+        }
         id.push(tmpId)
         return tmpId
     }
