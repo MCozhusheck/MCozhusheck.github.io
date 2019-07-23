@@ -7,8 +7,12 @@ const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 
 const placeholder = 'violin\n' + 
-'let aaa as SingleNote E4 for 0.5 velocity 0.5\n' +
-'Repeat aaa every 1 since 0 for 10';
+'let someVariable as SingleNote C4 for 0.5 velocity 0.3\n' +
+'Repeat someVariable every 5 since 1 for 11\n' +
+'Play SingleNote E4 for 0.5 velocity 0.5 at 2\n' +
+'Play SingleNote G4 for 0.5 velocity 0.7 at 3\n' +
+'Play SingleNote B4 for 0.5 velocity 1 at 4\n' +
+'Play ManyNotes D4 C4 for 0.5 velocity 0.7 at 5\n';
 
 
 function Timer() {
