@@ -14,7 +14,7 @@ export let getInstrument = function(instrument, onLoad) {
         onLoad()
         return instruments.get(instrument)
     }
-    let instrumentSample = new Tone.Sampler(instrumentsSource[instrument], undefined, baseUrl.concat(instrument+'/'))
+    let instrumentSample = new Tone.Sampler(instrumentsSource[instrument], onLoad, baseUrl.concat(instrument+'/'))
     instruments.set(instrument, instrumentSample)
     return instrumentSample
 }

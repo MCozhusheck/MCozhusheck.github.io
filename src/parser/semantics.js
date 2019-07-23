@@ -52,6 +52,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         const trigger = (time) => synth.triggerAttackRelease(noteArray, duration.eval(), time, velocity.eval())
         return trigger
     },
+    Assignment: function (_, ident, __, event) {
+        console.log(ident.eval())
+    },
     Duration: function (_, dur) {
         return dur.eval()
     },
@@ -93,6 +96,9 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     nowRelative: function(plus, tempoRel) {
         return plus.sourceString + tempoRel.eval()
+    },
+    ident: function(i) {
+        return i.sourceString
     },
     Repeat: function(_, callback, interval, start, duration) {
         let tmpId = Tone.Transport.scheduleRepeat(callback.eval(), interval.eval(), start.eval(), duration.eval())

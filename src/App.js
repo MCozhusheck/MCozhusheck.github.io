@@ -74,7 +74,6 @@ function App() {
     setLoaded(true)
     setFeedback("Audio assets loaded.")
   }
-  Tone.Buffer.on('load', assetsLoaded)
 
   Tone.Buffer.on('error', function() {
     setFeedback("Failed to to load audio assets.")

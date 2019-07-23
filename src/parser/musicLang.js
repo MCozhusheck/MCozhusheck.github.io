@@ -31,6 +31,7 @@ export let musicLang = `musicLang {
   Statement
     = Play
     | Repeat
+    | Assignment
 
   Event 
     = SingleNote
@@ -55,6 +56,9 @@ export let musicLang = `musicLang {
 
   ManyNotes4
     = "ManyNotes" noteFreq noteFreq noteFreq noteFreq Duration Velocity
+
+  Assignment
+    = "let" ident "as" Event
 
   noteFreq
     = pitchOctave
@@ -109,6 +113,8 @@ export let musicLang = `musicLang {
   nowRelative
     = "+" tempoRelative
     
+  ident
+    = alnum+
 }`
 
 export { musicLang as default}
