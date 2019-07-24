@@ -61,6 +61,11 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     Assignment: function (_, ident, __, event) {
         variables.set(ident.eval(), event.eval())
     },
+    Body: function (_, events, __) {
+        let bodyEvents = [];
+        events.children.forEach(node => bodyEvents.push(node.sourceString))
+        console.log(bodyEvents)
+    },
     Duration: function (_, dur) {
         return dur.eval()
     },

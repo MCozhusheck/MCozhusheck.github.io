@@ -61,6 +61,10 @@ export let musicLang = `musicLang {
 
   Assignment
     = "let" ident "as" Event
+    | "let" ident "as" Body
+
+  Body
+    = "begin" Event+ "end"
 
   noteFreq
     = pitchOctave
