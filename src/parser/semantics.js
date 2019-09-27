@@ -33,10 +33,16 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         let tmpId
         if(typeof event.eval() === 'function') {
             tmpId = Tone.Transport.schedule(event.eval(), start.eval())
+            id.push(tmpId)
         } else {
-            tmpId = Tone.Transport.schedule(variables.get(event.eval()), start.eval())
+            let events = variables.get(event.eval())
+            console.log(events)
+            for (let i=0; i<events.length; i++) {
+                tmpId = Tone.Transport.schedule(events[i], start.eval())
+                //console.log(tmpId)
+                id.push(tmpId)
+            }
         }
-        id.push(tmpId)
         return tmpId
     },
     SingleNote: function (_, noteFreq, duration, velocity) {
@@ -59,12 +65,21 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         return trigger
     },
     Assignment: function (_, ident, __, event) {
-        variables.set(ident.eval(), event.eval())
+        let eve = event.eval()
+        console.log(typeof eve)
+        variables.set(ident.eval(), eve)
     },
     Body: function (_, events, __) {
-        let bodyEvents = [];
-        events.children.forEach(node => bodyEvents.push(node.sourceString))
-        console.log(bodyEvents)
+        let bodyEvents = events.children
+        let tmps = new Array();
+        bodyEvents.forEach((element, index, array) => tmps.push(element.eval()))
+        // for(let i=0; i<bodyEvents.length; i++){
+        //     let tmp = bodyEvents[i].eval()
+        //     tmps.push(tmp)
+        //     console.log(tmp)
+        // }
+        //console.log(tmps)
+        return tmps
     },
     Duration: function (_, dur) {
         return dur.eval()
