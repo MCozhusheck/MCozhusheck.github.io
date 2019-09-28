@@ -37,10 +37,13 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         } else {
             let events = variables.get(event.eval())
             console.log(events)
-            for (let i=0; i<events.length; i++) {
-                tmpId = Tone.Transport.schedule(events[i], start.eval())
-                //console.log(tmpId)
-                id.push(tmpId)
+            if(typeof events === 'function') {
+                tmpId = Tone.Transport.schedule(events, start.eval())
+            } else {
+                for (let i=0; i<events.length; i++) {
+                    tmpId = Tone.Transport.schedule(events[i], start.eval())
+                    id.push(tmpId)
+                }
             }
         }
         return tmpId
@@ -66,19 +69,12 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     Assignment: function (_, ident, __, event) {
         let eve = event.eval()
-        console.log(typeof eve)
         variables.set(ident.eval(), eve)
     },
     Body: function (_, events, __) {
         let bodyEvents = events.children
         let tmps = new Array();
         bodyEvents.forEach((element, index, array) => tmps.push(element.eval()))
-        // for(let i=0; i<bodyEvents.length; i++){
-        //     let tmp = bodyEvents[i].eval()
-        //     tmps.push(tmp)
-        //     console.log(tmp)
-        // }
-        //console.log(tmps)
         return tmps
     },
     Duration: function (_, dur) {
