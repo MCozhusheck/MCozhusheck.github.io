@@ -4,7 +4,7 @@ export let musicLang = `musicLang {
     = Start
 
   Start
-    = Instrument Statement*
+    = "use" Instrument BPM? Statement*
 
   Instrument
     = "bass-electric"
@@ -27,6 +27,9 @@ export let musicLang = `musicLang {
     | "tuba"
     | "violin"
     | "xylophone"
+
+  BPM
+    = "set" "bpm" "to" number
   
   Statement
     = Play

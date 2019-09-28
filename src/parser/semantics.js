@@ -16,12 +16,15 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         id = []
         start.eval()
     },
-    Start: function(toneType, statements) {
+    Start: function(_, toneType, bpm, statements) {
         toneType.eval()
         statements.eval()
     },
     Instrument(oscillator) {
         synth = getInstrument(oscillator.sourceString, onLoad).toMaster()
+    },
+    BPM: function(_, __, ___, bpm){
+        Tone.Transport.bpm.value = bpm.eval()
     },
     Statement: function(e) {
         e.eval()
