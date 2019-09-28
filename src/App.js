@@ -7,6 +7,7 @@ const parsingSucceeded = "Parsing succeeded";
 const parsingFailed = "Parsing Failed";
 
 const placeholder = 'use violin\n' + 
+'set bpm to 120\n' +
 'let someVariable as SingleNote C4 for 0.5 velocity 0.3\n' +
 'Repeat someVariable every 5 since 1 for 11\n' +
 'Play SingleNote E4 for 0.5 velocity 0.5 at 2\n' +
