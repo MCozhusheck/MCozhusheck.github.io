@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { parse, match, nodes, id } from './parser/semantics';
+import { parse, match, nodes, id, fft, waveform } from './parser/semantics';
 import Tone  from 'tone';
 
 const parsingSucceeded = "Parsing succeeded";
@@ -31,7 +31,7 @@ function Timer() {
   );
 }
 
-function ToggleButton({disabled}) {
+function ToggleButton({ disabled }) {
 
   function toggleMusic() {
     Tone.Transport.toggle()
@@ -45,7 +45,6 @@ function ToggleButton({disabled}) {
 }
 
 function ParseButton({parse}) {
-  
   return (
     <button onClick={parse}>
         parse
@@ -115,6 +114,7 @@ function App() {
   );
 }
 
+//thank you Abramov <3
 function useInterval(callback, delay) {
   const savedCallback = useRef();
 

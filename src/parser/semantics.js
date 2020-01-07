@@ -9,6 +9,8 @@ let onLoad = null;
 let variables = new Map();
 export let id
 export let nodes
+export let fft = new Tone.FFT(16);
+export let waveform = new Tone.Waveform(16);
 
 let semnantics = gramma.createSemantics().addOperation('eval', {
     Init: function(start) {
@@ -21,7 +23,7 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
         statements.eval()
     },
     Instrument(oscillator) {
-        synth = getInstrument(oscillator.sourceString, onLoad).toMaster()
+        synth = getInstrument(oscillator.sourceString, onLoad).chain(waveform, fft, Tone.Master)
     },
     BPM: function(_, __, ___, bpm){
         Tone.Transport.bpm.value = bpm.eval()
@@ -147,4 +149,4 @@ export let match = function(input){
     return gramma.match(input)
 }
 
-export default { parse, match, nodes, id }
+export default { parse, match, nodes, id, fft, waveform }
