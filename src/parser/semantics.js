@@ -78,7 +78,7 @@ let semnantics = gramma.createSemantics().addOperation('eval', {
     },
     Body: function (_, events, __) {
         let bodyEvents = events.children
-        let tmps = new Array();
+        let tmps = [];
         bodyEvents.forEach((element, index, array) => tmps.push(element.eval()))
         return tmps
     },
