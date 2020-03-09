@@ -1,6 +1,8 @@
 # MusicLang
 Online interpreter using ohm.js that produce melody with Tone.js
 
+Clone and run`npm install && npm run start` or visit [my github page](https://mcozhusheck.github.io/MusicLang).
+
 # Syntax
 
 ## Header
